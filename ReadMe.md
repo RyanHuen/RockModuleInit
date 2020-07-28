@@ -2,6 +2,13 @@
 ## 方案：
 - 组件化模块需要注入Application、获取Context等相关逻辑的解决方案
 
+##
+- 仓库地址：
+
+```
+https://bintray.com/ryanhuen/RyanHuen
+```
+
 ## 使用方式：
 - 集成：
 
