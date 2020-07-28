@@ -1,0 +1,146 @@
+easyDep {
+    compileSdkVersion 28
+    buildToolsVersion "28.0.0"
+    minSdkVersion 16
+    targetSdkVersion 28
+
+    groups {
+        androidx {
+            nodes {
+                appcompat {
+                    alias 'androidx.appcompat:appcompat'
+                    version '1.1.0'
+                }
+                recyclerView {
+                    alias 'androidx.recyclerview:recyclerview'
+                    version '1.1.0'
+                }
+                cardview {
+                    alias 'androidx.cardview:cardview'
+                    version '1.0.0'
+                }
+                gridlayout {
+                    alias 'androidx.gridlayout:gridlayout'
+                    version '1.0.0'
+                }
+                preference {
+                    alias 'androidx.preference:preference'
+                    version '1.1.1'
+                }
+                multidex {
+                    alias 'androidx.multidex:multidex'
+                    version '2.0.1'
+                }
+                material_design {
+                    alias 'com.google.android.material:material'
+                    version '1.1.0'
+                }
+                annotation {
+                    alias 'androidx.annotation:annotation'
+                    version '1.1.0'
+                }
+                constraintlayout {
+                    alias 'androidx.constraintlayout:constraintlayout'
+                    version '1.1.3'
+                }
+                lifecycle_runtime {
+                    alias 'androidx.lifecycle:lifecycle-runtime'
+                    version '2.2.0'
+                }
+                lifecycle_extensions {
+                    alias 'androidx.lifecycle:lifecycle-extensions'
+                    version '2.2.0'
+                }
+                lifecycle_compiler {
+                    alias 'androidx.lifecycle:lifecycle-compiler'
+                    version '2.2.0'
+                }
+                core_ktx {
+                    alias 'androidx.core:core-ktx'
+                    version '1.2.0'
+                }
+            }
+        }
+        unit_test {
+            nodes {
+                junit {
+                    alias 'junit:junit'
+                    version '4.12'
+                }
+                ext_junit {
+                    alias 'androidx.test.ext:junit'
+                    version '1.1.1'
+                }
+                espresso_core {
+                    alias 'androidx.test.espresso:espresso-core'
+                    version '3.2.0'
+                }
+            }
+        }
+        kotlin {
+            nodes {
+                kotlin_stdlib {
+                    alias 'org.jetbrains.kotlin:kotlin-stdlib'
+                    version '1.3.72'
+                }
+                corotines_core {
+                    alias 'org.jetbrains.kotlinx:kotlinx-coroutines-core'
+                    version '1.3.7'
+                }
+                corotines_android {
+                    alias 'org.jetbrains.kotlinx:kotlinx-coroutines-android'
+                    version '1.3.7'
+                }
+                kotlin_reflect {
+                    alias 'org.jetbrains.kotlin:kotlin-reflect'
+                    version '1.3.72'
+                }
+            }
+        }
+        reactiveX {
+            nodes {
+                rx_java {
+                    alias 'io.reactivex.rxjava2:rxjava'
+                    version '2.2.7'
+                }
+                rx_android {
+                    alias 'io.reactivex.rxjava2:rxandroid'
+                    version '2.1.1'
+                }
+                auto_dispose_android_lifecycle {
+                    alias 'com.uber.autodispose:autodispose'
+                    version '0.6.1'
+                }
+
+                auto_dispose {
+                    alias 'com.uber.autodispose:autodispose-android-archcomponents'
+                    version '0.6.1'
+                }
+            }
+        }
+        retrofit {
+            nodes {
+                retrofit {
+                    alias 'com.squareup.retrofit2:retrofit'
+                    version '2.5.0'
+                }
+                converter_gson {
+                    alias 'com.squareup.retrofit2:converter-gson'
+                    version '2.5.0'
+                }
+                adapter_rxjava2 {
+                    alias 'com.squareup.retrofit2:adapter-rxjava2'
+                    version '2.5.0'
+                }
+            }
+        }
+        ryanhuen{
+            nodes{
+                template {
+                    alias 'com.ryanhuen.sdk.android:template'
+                    version '1.0.0'
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,58 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+if (rootProject.attach_ryanhuen_gradle_modinit) {
+    apply plugin: 'mod_init'
+}
+
+android {
+    compileSdkVersion easyDep.compileSdkVersion
+    buildToolsVersion easyDep.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion easyDep.minSdkVersion
+        targetSdkVersion easyDep.targetSdkVersion
+        applicationId "com.rock.exmoduleinit"
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    signingConfigs {
+        meituan {
+            storeFile file("keystore.jks")
+            storePassword "robust"
+            keyAlias "robust"
+            keyPassword "robust"
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.meituan
+        }
+    }
+}
+
+if (rootProject.attach_ryanhuen_gradle_modinit) {
+    moduleInitExt {
+        injectApplicationName "com.rock.moduleinit.TestApplication"
+        scanPackageNames = ["com.ryanhuen"]
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    testImplementation easyDep.groups.unit_test.nodes.junit.dep
+    androidTestImplementation easyDep.groups.unit_test.nodes.ext_junit.dep
+    androidTestImplementation easyDep.groups.unit_test.nodes.espresso_core.dep
+    implementation easyDep.groups.kotlin.nodes.kotlin_stdlib.dep
+    implementation easyDep.groups.androidx.nodes.core_ktx.dep
+    implementation easyDep.groups.androidx.nodes.appcompat.dep
+    implementation easyDep.groups.androidx.nodes.constraintlayout.dep
+    implementation project(":DemoComponent")
+    if (rootProject.attach_ryanhuen_gradle_modinit) {
+        implementation easyDep.groups.ryanhuen.nodes.template.dep
+    }
+}

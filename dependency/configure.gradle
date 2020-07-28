@@ -1,0 +1,5 @@
+ext {
+
+    attach_ryanhuen_gradle_modinit = true
+    artifact_jcenter = false
+}

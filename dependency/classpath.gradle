@@ -1,0 +1,12 @@
+ext {
+    classpath = [:]
+}
+
+ext.classpath.android_gradle = 'com.android.tools.build:gradle:3.4.1'
+ext.classpath.android_gradle_api = 'com.android.tools.build:gradle-api:3.4.1'
+ext.classpath.kotlin_gradle_plugin='org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.72'
+ext.classpath.easy_dep = 'com.ryanhuen.easy_dependencies:easydependencies:1.0.3'
+ext.classpath.walle_plugin = 'com.meituan.android.walle:plugin:1.1.5'
+ext.classpath.sqkb_robust_gradle_plugin = "com.ex.sdk.android:gradle-plugin:0.1.02"
+ext.classpath.sqkb_robust_auto_patch_plugin = "com.ex.sdk.android:auto-patch-plugin:0.1.02"
+ext.classpath.ex_gradle_modinit = "com.ryanhuen.sdk.gradle:modinit:1.0.0"

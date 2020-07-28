@@ -1,0 +1,27 @@
+def configureRepo(RepositoryHandler handler) {
+    handler.maven {
+        url '/Users/ryanhuen/RyanHuen/Project/RockModuleInit/repo'
+    }
+    //react native
+    handler.maven {
+        url "$rootDir/rn/node_modules/react-native/android"
+    }
+    handler.maven {
+        url 'http://maven.aliyun.com/nexus/content/repositories/jcenter'
+    }
+    handler.maven {
+        url 'http://maven.aliyun.com/nexus/content/groups/public'
+    }
+    handler.mavenLocal()
+    handler.mavenCentral()
+    handler.google()
+    handler.jcenter()
+    handler.maven {
+        url "https://jitpack.io"
+    }
+    handler.flatDir {
+        dirs 'libs'
+    }
+}
+
+ext.configureRepo = this.&configureRepo
