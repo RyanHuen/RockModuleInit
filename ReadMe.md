@@ -26,9 +26,9 @@
 public class DemoDelegateApplication implements IModuleInitTemplate {
 
     @Override
-    public void attachBaseContext(@NotNull Application application) {
+    public void attachBaseContextMethodExit(@NotNull Application application) {
 
-        Log.d("MuXi", "DemoDelegateApplication" + " : attachBaseContext: " + application);
+        Log.d("MuXi", "DemoDelegateApplication" + " : attachBaseContextMethodExit: " + application);
     }
 
     @Override
