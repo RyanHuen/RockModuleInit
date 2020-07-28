@@ -1,6 +1,6 @@
 # RockModuleInit
 ## 方案：
-- 解决组件化模块需要注入Application、获取Context等相关逻辑的解决方案
+- 组件化模块需要注入Application、获取Context等相关逻辑的解决方案
 
 ## 使用方式：
 - 集成：
