@@ -1,4 +1,4 @@
-# ExModuleInit
+# RockModuleInit
 ## 方案：
 - 解决组件化模块需要注入Application、获取Context等相关逻辑的解决方案
 
@@ -16,6 +16,7 @@
 
     moduleInitExt {
         injectApplicationName "com.ryanhuen.exmoduleinit.TestApplication"  //app工程Manifest中配置的Application类全名
+        scanPackageNames = ["com.rock", "com.ryanhuen"]   //插桩扫描的package包
     }
 ```
 
