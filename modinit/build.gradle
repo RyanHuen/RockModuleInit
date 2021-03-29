@@ -1,13 +1,14 @@
 apply plugin: 'kotlin'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'java'
-if (rootProject.artifact_jcenter) {
-    apply from: 'jcenter.gradle'
+if (!rootProject.publish_li_auto_nexus) {
+    if (rootProject.artifact_jcenter) {
+        apply from: 'jcenter.gradle'
+    }
+    if (!rootProject.artifact_jcenter) {
+        apply from: 'maven.gradle'
+    }
 }
-if (!rootProject.artifact_jcenter) {
-    apply from: 'maven.gradle'
-}
-
 
 sourceSets {
     main {
@@ -33,11 +34,39 @@ dependencies {
     implementation rootProject.classpath.android_gradle
     implementation rootProject.classpath.android_gradle_api
     implementation easyDep.groups.kotlin.nodes.kotlin_stdlib.dep
-    implementation easyDep.groups.ryanhuen.nodes.template.dep
+    implementation "com.liauto.sdk.android:template:1.0.24"
 
     implementation 'org.ow2.asm:asm:7.2'
     implementation 'org.ow2.asm:asm-util:7.2'
     implementation 'org.ow2.asm:asm-commons:7.2'
     implementation 'org.javassist:javassist:3.20.0-GA'
     implementation 'com.quinn.hunter:hunter-transform:0.9.3'
+}
+
+if (rootProject.publish_li_auto_nexus) {
+    //解决 Windows下 uploadArch 失败的问题
+    tasks.withType(Javadoc) {
+        options.encoding = 'UTF-8'
+    }
+
+    // apply maven plugin
+    ext {
+        // Group ID 表示Library所在的组.
+        // 例子:
+        PROJ_GROUP_ID = 'com.liauto.sdk.gradle'
+
+        // Artifact ID 表示Library的名字
+        // 例子:
+        PROJ_ARTIFACT_ID = 'modinit'
+
+        // 开启/关闭 SNAPSHOT 模式
+        // 因为Maven库不允许上传重复的版本，导致开发者上传Library后测试时如果发现
+        // 问题则当前版本号就无法再次使用。为了避免此情况可以使用SNAPSHOT特性。
+        // 如果一个Library的版本号后面带 `-SNAPSHOT` 就说明当前版本不是最终版本。
+        // 而且可以使用当前版本号进行多次打包上传，等到稳定后再上传 非SNAPSHOT
+        // 的版本。
+        PROJ_SNAPSHOT_MODE = false
+    }
+
+    apply from: '../maven-release.gradle'
 }

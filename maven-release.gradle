@@ -1,0 +1,80 @@
+apply plugin: 'maven-publish'
+apply plugin: 'maven'
+
+ext.getGroupId = { ->
+    return project.PROJ_GROUP_ID;
+}
+
+ext.getArtifactId = { ->
+    return project.PROJ_ARTIFACT_ID;
+}
+
+ext.getSnapshotMode = { ->
+    return project.hasProperty('PROJ_SNAPSHOT_MODE') && project.PROJ_SNAPSHOT_MODE;
+}
+
+ext.getPomVersion = { ->
+
+    if (project.hasProperty('maven_version')) {
+        return project.maven_version + (getSnapshotMode() ? '-SNAPSHOT' : '');
+    } else if (project.hasProperty('android')) {
+        return android.variant.versionName + (getSnapshotMode() ? '-SNAPSHOT' : '');
+    } else {
+        return '0.0.0';
+    }
+}
+
+ext.getRepo = { ->
+//    return uri("../repo")
+    if (!getSnapshotMode()) {
+        return "http://nexus.chj.com/nexus/content/repositories/hmi-releases/"
+    } else {
+        return "http://nexus.chj.com/nexus/content/repositories/hmi-snapshots/"
+    }
+}
+
+
+uploadArchives {
+    repositories.mavenDeployer {
+        pom.groupId = getGroupId()
+        pom.artifactId = getArtifactId()
+        pom.version = getPomVersion()
+        // Add other pom properties here if you want (developer details / licenses)
+        repository(url: getRepo()) {
+            authentication(userName: 'hmi', password: 'zhangrongkang')
+        }
+    }
+}
+
+// - upload java source && java docs
+
+if (project.hasProperty("android")) { // Android libraries
+    task sourcesJar(type: Jar) {
+        classifier = 'sources'
+        from android.sourceSets.main.java.srcDirs
+    }
+
+    task javadoc(type: Javadoc) {
+        failOnError = false
+        source = android.sourceSets.main.java.srcDirs
+        classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+        if (configurations.hasProperty("javadocDeps")) {
+            classpath += configurations.javadocDeps
+        }
+    }
+} else { // Java libraries
+    task sourcesJar(type: Jar, dependsOn: classes) {
+        classifier = 'sources'
+        from sourceSets.main.allSource
+    }
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}

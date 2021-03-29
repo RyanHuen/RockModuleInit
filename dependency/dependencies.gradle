@@ -137,8 +137,8 @@ easyDep {
         ryanhuen{
             nodes{
                 template {
-                    alias 'com.ryanhuen.sdk.android:template'
-                    version '1.0.0'
+                    alias 'com.liauto.sdk.android:template'
+                    version '1.0.21'
                 }
             }
         }

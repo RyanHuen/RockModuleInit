@@ -1,5 +1,5 @@
-include ':DemoComponent'
+//include ':DemoComponent'
 include ':modinit'
-include ':template'
-include ':app'
+//include ':template'
+//include ':app'
 rootProject.name = "RockModuleInit"

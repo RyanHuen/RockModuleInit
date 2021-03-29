@@ -2,11 +2,13 @@ apply plugin: 'java'
 apply plugin: 'kotlin'
 apply plugin: 'kotlin-kapt'
 
-if (rootProject.artifact_jcenter) {
-    apply from: 'jcenter.gradle'
-}
-if (!rootProject.artifact_jcenter) {
-    apply from: 'maven.gradle'
+if (!rootProject.publish_li_auto_nexus) {
+    if (rootProject.artifact_jcenter) {
+        apply from: 'jcenter.gradle'
+    }
+    if (!rootProject.artifact_jcenter) {
+        apply from: 'maven.gradle'
+    }
 }
 
 compileKotlin {
@@ -19,4 +21,31 @@ targetCompatibility = JavaVersion.VERSION_1_8
 
 dependencies {
     compileOnly files('libs/android.jar')
+}
+if (rootProject.publish_li_auto_nexus) {
+    //解决 Windows下 uploadArch 失败的问题
+    tasks.withType(Javadoc) {
+        options.encoding = 'UTF-8'
+    }
+
+    // apply maven plugin
+    ext {
+        // Group ID 表示Library所在的组.
+        // 例子:
+        PROJ_GROUP_ID = 'com.liauto.sdk.android'
+
+        // Artifact ID 表示Library的名字
+        // 例子:
+        PROJ_ARTIFACT_ID = 'template'
+
+        // 开启/关闭 SNAPSHOT 模式
+        // 因为Maven库不允许上传重复的版本，导致开发者上传Library后测试时如果发现
+        // 问题则当前版本号就无法再次使用。为了避免此情况可以使用SNAPSHOT特性。
+        // 如果一个Library的版本号后面带 `-SNAPSHOT` 就说明当前版本不是最终版本。
+        // 而且可以使用当前版本号进行多次打包上传，等到稳定后再上传 非SNAPSHOT
+        // 的版本。
+        PROJ_SNAPSHOT_MODE = false
+    }
+
+    apply from: '../maven-release.gradle'
 }

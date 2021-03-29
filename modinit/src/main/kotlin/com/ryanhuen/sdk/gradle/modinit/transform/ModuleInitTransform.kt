@@ -33,6 +33,7 @@ class ModuleInitTransform(
     private val mInjectClassSet: MutableSet<CtClass> = mutableSetOf()
     private var injectApplicationName: String = ""
     private var scanPackageNames: List<String> = listOf()
+    private var excludePackageNames: List<String> = listOf()
     private val classPool = ClassPool()
 
     init {
@@ -48,9 +49,10 @@ class ModuleInitTransform(
         isIncremental: Boolean
     ) {
         println("==========================$name start work===============================")
-        println("attempt to setup injectApplicationName:  $injectApplicationName")
         this.injectApplicationName = dependenciesExtension.injectApplicationName
+        println("attempt to setup injectApplicationName:  $injectApplicationName")
         this.scanPackageNames = dependenciesExtension.scanPackageNames
+        this.excludePackageNames = dependenciesExtension.excludePackageNames
         onPreFindClasses(inputs)
         if (bytecodeWeaver is ModuleInitCodeWeaver) {
             println("try to attach data injectApplicationName:  $injectApplicationName")
@@ -70,7 +72,7 @@ class ModuleInitTransform(
         val resultList: MutableList<InjectClassParams> = mutableListOf()
         val classList = mInjectClassSet.toList()
         for (ctClass in classList) {
-            val filedName: String = "m" + ctClass.simpleName
+            val filedName: String = ctClass.simpleName
             resultList.add(
                 InjectClassParams(
                     filedName,
@@ -157,13 +159,23 @@ class ModuleInitTransform(
             }
         }
         println("pre load classes finish, found  classes count : " + mAllClasses.size)
+        println("pre load classes finish, found  classes count xuanweihong: " + mAllClasses.size)
         mAllClasses.forEach { clazz ->
-            if (hitTargetScanPackageName(clazz.packageName) && !clazz.isInterface && !clazz.interfaces.isNullOrEmpty()) {
-                clazz.interfaces.forEach {
-                    if (IModuleInitTemplate::class.qualifiedName.equals(it.name)) {
-                        mInjectClassSet.add(clazz);
+            try {
+                if (hitTargetScanPackageName(clazz.packageName)
+                    && !hitTargetExcludePackageName(clazz.packageName)
+                    && !clazz.isInterface
+                    && !clazz.interfaces.isNullOrEmpty()
+                ) {
+                    clazz.interfaces.forEach {
+                        if (IModuleInitTemplate::class.qualifiedName.equals(it.name)) {
+                            mInjectClassSet.add(clazz);
+                        }
                     }
                 }
+            } catch (e: Exception) {
+                println(clazz.name)
+                e.printStackTrace()
             }
         }
 
@@ -171,6 +183,17 @@ class ModuleInitTransform(
         for (ctClass in mInjectClassSet) {
             println("found template implement classes :  $ctClass");
         }
+    }
+
+    private fun hitTargetExcludePackageName(packageName: String?): Boolean {
+        var hit: Boolean = false
+        for (scanPackageName in excludePackageNames) {
+            hit = packageName?.startsWith(scanPackageName) ?: false
+            if (hit) {
+                break
+            }
+        }
+        return hit
     }
 
     private fun hitTargetScanPackageName(packageName: String?): Boolean {

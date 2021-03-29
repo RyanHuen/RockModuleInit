@@ -73,7 +73,7 @@ class ModuleInitClassAdapter(
                         signature,
                         exceptions
                     )
-                } else if (name == "<init>") {
+                }/* else if (name == "<init>") {
                     println("找到类的init函数，执行插桩操作初始化插入的Field    类：$mClassName   函数：$name")
                     return ModuleInitFieldSetupMethodAdapter(
                         mClassName,
@@ -85,7 +85,7 @@ class ModuleInitClassAdapter(
                         signature,
                         exceptions
                     )
-                }
+                }*/
             }
             return methodVisitor
         }
@@ -96,11 +96,11 @@ class ModuleInitClassAdapter(
     }
 
     private fun attemptToInsertFieldFromInjectClassParams() {
-        println("ModuleInitClassAdapter attemptToInsertFieldFromInjectClassParams function call")
-        val injectClassList: List<InjectClassParams> = moduleInitParams.injectClassList
-        for (injectClassParams in injectClassList) {
-            realInjectField(injectClassParams)
-        }
+//        println("ModuleInitClassAdapter attemptToInsertFieldFromInjectClassParams function call")
+//        val injectClassList: List<InjectClassParams> = moduleInitParams.injectClassList
+//        for (injectClassParams in injectClassList) {
+//            realInjectField(injectClassParams)
+//        }
     }
 
     private fun realInjectField(injectClassParams: InjectClassParams) {

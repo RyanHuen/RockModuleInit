@@ -1,5 +1,6 @@
 ext {
 
-    attach_ryanhuen_gradle_modinit = true
+    attach_ryanhuen_gradle_modinit = false
     artifact_jcenter = false
+    publish_li_auto_nexus = true
 }

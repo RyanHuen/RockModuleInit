@@ -6,6 +6,7 @@ import com.ryanhuen.sdk.android.template.MethodExit
 import com.ryanhuen.sdk.gradle.modinit.params.InjectClassParams
 import com.ryanhuen.sdk.gradle.modinit.params.ModuleInitParams
 import javassist.CtClass
+import org.objectweb.asm.Label
 import org.objectweb.asm.MethodVisitor
 import org.objectweb.asm.Opcodes
 import org.objectweb.asm.Type
@@ -98,12 +99,14 @@ class ModuleInitTemplateMethodAdapter(
 
         val list: List<InjectClassParams> = moduleInitParams.injectClassList
         for (injectClassParams in list) {
-            mv.visitVarInsn(ALOAD, 0);
-            mv.visitFieldInsn(
-                GETFIELD,
-                mClassName,
-                injectClassParams.fieldName,
-                Type.getDescriptor(injectClassParams.clazz)
+            val l0 = Label()
+            mv.visitLabel(l0)
+            mv.visitMethodInsn(
+                INVOKESTATIC,
+                injectClassParams.ctClass.name.replace(".", File.separator),
+                "getInstance",
+                "()" + Type.getDescriptor(injectClassParams.clazz),
+                false
             )
             if (enterMethodWithParams) {
                 mv.visitVarInsn(ALOAD, 0)
@@ -128,13 +131,15 @@ class ModuleInitTemplateMethodAdapter(
     private fun injectTemplateMethodInvokeExit() {
         val list: List<InjectClassParams> = moduleInitParams.injectClassList
         for (injectClassParams in list) {
-            mv.visitVarInsn(ALOAD, 0);
-            mv.visitFieldInsn(
-                GETFIELD,
-                mClassName,
-                injectClassParams.fieldName,
-                Type.getDescriptor(injectClassParams.clazz)
-            );
+            val l0 = Label()
+            mv.visitLabel(l0)
+            mv.visitMethodInsn(
+                INVOKESTATIC,
+                injectClassParams.ctClass.name.replace(".", File.separator),
+                "getInstance",
+                "()" + Type.getDescriptor(injectClassParams.clazz),
+                false
+            )
             if (enterMethodWithParams) {
                 mv.visitVarInsn(ALOAD, 0)
             }

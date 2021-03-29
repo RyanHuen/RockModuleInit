@@ -9,7 +9,7 @@ ext.classpath.easy_dep = 'com.ryanhuen.easy_dependencies:easydependencies:1.0.3'
 ext.classpath.walle_plugin = 'com.meituan.android.walle:plugin:1.1.5'
 ext.classpath.sqkb_robust_gradle_plugin = "com.ex.sdk.android:gradle-plugin:0.1.02"
 ext.classpath.sqkb_robust_auto_patch_plugin = "com.ex.sdk.android:auto-patch-plugin:0.1.02"
-ext.classpath.ex_gradle_modinit = "com.ryanhuen.sdk.gradle:modinit:1.0.0"
+ext.classpath.ex_gradle_modinit = "com.liauto.sdk.gradle:modinit:1.0.20"
 ext.classpath.gradle_bintray_plugin = 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4'
 ext.classpath.android_maven_gradle_plugin = 'com.github.dcendents:android-maven-gradle-plugin:2.1'
 

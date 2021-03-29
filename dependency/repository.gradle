@@ -1,6 +1,6 @@
 def configureRepo(RepositoryHandler handler) {
     handler.maven {
-        url '/Users/ryanhuen/RyanHuen/Project/RockModuleInit/repo'
+        url '/home/xuanweihong/Project/Research/RockModuleInit/repo'
     }
     //react native
     handler.maven {

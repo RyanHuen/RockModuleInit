@@ -33,7 +33,5 @@ dependencies {
     implementation easyDep.groups.androidx.nodes.appcompat.dep
     implementation easyDep.groups.androidx.nodes.constraintlayout.dep
 
-    if (rootProject.attach_ryanhuen_gradle_modinit) {
-        implementation easyDep.groups.ryanhuen.nodes.template.dep
-    }
+    implementation project(path: ':template')
 }

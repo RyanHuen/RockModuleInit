@@ -37,8 +37,8 @@ android {
 
 if (rootProject.attach_ryanhuen_gradle_modinit) {
     moduleInitExt {
-        injectApplicationName "com.rock.moduleinit.TestApplication"
-        scanPackageNames = ["com.ryanhuen"]
+        injectApplicationName "com.rock.moduleinit.AppApplication"
+        scanPackageNames = ["com.rock"]
     }
 }
 
@@ -48,11 +48,8 @@ dependencies {
     androidTestImplementation easyDep.groups.unit_test.nodes.ext_junit.dep
     androidTestImplementation easyDep.groups.unit_test.nodes.espresso_core.dep
     implementation easyDep.groups.kotlin.nodes.kotlin_stdlib.dep
-    implementation easyDep.groups.androidx.nodes.core_ktx.dep
     implementation easyDep.groups.androidx.nodes.appcompat.dep
     implementation easyDep.groups.androidx.nodes.constraintlayout.dep
     implementation project(":DemoComponent")
-    if (rootProject.attach_ryanhuen_gradle_modinit) {
-        implementation easyDep.groups.ryanhuen.nodes.template.dep
-    }
+    implementation project(path: ':template')
 }
