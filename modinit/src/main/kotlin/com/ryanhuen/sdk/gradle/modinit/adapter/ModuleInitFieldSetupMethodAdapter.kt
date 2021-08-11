@@ -26,18 +26,18 @@ class ModuleInitFieldSetupMethodAdapter(
         for (injectClassParams in list) {
             mv.visitCode()
             mv.visitVarInsn(ALOAD, 0)
-            mv.visitTypeInsn(NEW, injectClassParams.ctClass.name.replace(".", File.separator))
+            mv.visitTypeInsn(NEW, injectClassParams.ctClass.name.replace(".", "/"))
             mv.visitInsn(DUP)
             mv.visitMethodInsn(
                 INVOKESPECIAL,
-                injectClassParams.ctClass.name.replace(".", File.separator),
+                injectClassParams.ctClass.name.replace(".", "/"),
                 "<init>",
                 "()V",
                 false
             )
             mv.visitFieldInsn(
                 PUTFIELD,
-                moduleInitParams.injectApplicationName.replace(".", File.separator),
+                moduleInitParams.injectApplicationName.replace(".", "/"),
                 injectClassParams.fieldName,
                 Type.getDescriptor(injectClassParams.clazz)
             )

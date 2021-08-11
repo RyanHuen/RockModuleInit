@@ -31,10 +31,11 @@ targetCompatibility = JavaVersion.VERSION_1_8
 dependencies {
     implementation gradleApi()
     implementation localGroovy()
+//    compileOnly project(path: ':gsttemplate')
+    implementation 'com.liauto.sdk.android:template:1.0.25'
     implementation rootProject.classpath.android_gradle
     implementation rootProject.classpath.android_gradle_api
     implementation easyDep.groups.kotlin.nodes.kotlin_stdlib.dep
-    implementation "com.liauto.sdk.android:template:1.0.24"
 
     implementation 'org.ow2.asm:asm:7.2'
     implementation 'org.ow2.asm:asm-util:7.2'

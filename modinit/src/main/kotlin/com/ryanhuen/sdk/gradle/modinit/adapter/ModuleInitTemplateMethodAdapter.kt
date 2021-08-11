@@ -103,7 +103,7 @@ class ModuleInitTemplateMethodAdapter(
             mv.visitLabel(l0)
             mv.visitMethodInsn(
                 INVOKESTATIC,
-                injectClassParams.ctClass.name.replace(".", File.separator),
+                injectClassParams.ctClass.name.replace(".", "/"),
                 "getInstance",
                 "()" + Type.getDescriptor(injectClassParams.clazz),
                 false
@@ -113,7 +113,7 @@ class ModuleInitTemplateMethodAdapter(
             }
             mv.visitMethodInsn(
                 INVOKEVIRTUAL,
-                injectClassParams.ctClass.name.replace(".", File.separator),
+                injectClassParams.ctClass.name.replace(".", "/"),
                 enterMethodName,
                 if (enterMethodWithParams) "(Landroid/app/Application;)V" else "()V",
                 false
@@ -135,7 +135,7 @@ class ModuleInitTemplateMethodAdapter(
             mv.visitLabel(l0)
             mv.visitMethodInsn(
                 INVOKESTATIC,
-                injectClassParams.ctClass.name.replace(".", File.separator),
+                injectClassParams.ctClass.name.replace(".", "/"),
                 "getInstance",
                 "()" + Type.getDescriptor(injectClassParams.clazz),
                 false
@@ -145,7 +145,7 @@ class ModuleInitTemplateMethodAdapter(
             }
             mv.visitMethodInsn(
                 INVOKEVIRTUAL,
-                injectClassParams.ctClass.name.replace(".", File.separator),
+                injectClassParams.ctClass.name.replace(".", "/"),
                 exitMethodName,
                 if (enterMethodWithParams) "(Landroid/app/Application;)V" else "()V",
                 false

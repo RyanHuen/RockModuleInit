@@ -18,6 +18,7 @@ import javassist.CtClass
 import javassist.NotFoundException
 import org.apache.commons.io.FileUtils
 import org.gradle.api.Project
+import org.gradle.internal.impldep.org.apache.maven.artifact.ArtifactUtils
 import java.io.File
 import java.util.*
 import java.util.jar.JarFile
@@ -48,6 +49,8 @@ class ModuleInitTransform(
         outputProvider: TransformOutputProvider,
         isIncremental: Boolean
     ) {
+
+        project.dependencyLocking
         println("==========================$name start work===============================")
         this.injectApplicationName = dependenciesExtension.injectApplicationName
         println("attempt to setup injectApplicationName:  $injectApplicationName")
@@ -147,7 +150,7 @@ class ModuleInitTransform(
                         }
                     }
                 } catch (e: Exception) {
-                    e.printStackTrace()
+                    println("exception: "+e.message)
                 }
             }
             for (className in classNames) {

@@ -25,7 +25,7 @@ class ModuleInitParams(
 
     fun hitInjectApplicationClass(className: String): Boolean {
         val formatInjectApplicationName: String = injectApplicationName.replace(
-            ".", File.separator
+            ".", "/"
         )
         return formatInjectApplicationName == className
     }
